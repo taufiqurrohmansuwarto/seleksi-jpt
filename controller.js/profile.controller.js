@@ -53,6 +53,7 @@ const update = async (req, res) => {
     res.json({ code: 200, message: "success" });
   } catch (error) {
     console.log(error);
+    res.status(400).json({ code: 400, message: "Internal Server Error" });
   }
 };
 
