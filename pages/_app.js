@@ -1,9 +1,17 @@
 import "@ant-design/pro-layout/dist/layout.css";
-import { Spin } from "antd";
+import { ConfigProvider, Spin } from "antd";
 import "antd/dist/antd.css";
+import id from "antd/lib/locale/id_ID";
+import moment from "moment";
+import "moment/locale/id";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+moment.locale("id");
+
+const validateMessages = {
+  required: "'${name}' tidak boleh kosong!",
+};
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -14,17 +22,19 @@ function MyApp({ Component, pageProps }) {
       baseUrl="/seleksi-jpt"
       refetchInterval={0}
     >
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps?.dehydratedState}>
-          {Component.auth ? (
-            <Auth>
-              <Component {...pageProps} />;
-            </Auth>
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </Hydrate>
-      </QueryClientProvider>
+      <ConfigProvider form={{ validateMessages }} locale={id}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps?.dehydratedState}>
+            {Component.auth ? (
+              <Auth>
+                <Component {...pageProps} />;
+              </Auth>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </Hydrate>
+        </QueryClientProvider>
+      </ConfigProvider>
     </SessionProvider>
   );
 }

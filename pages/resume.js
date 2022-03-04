@@ -32,6 +32,10 @@ const FormProfile = ({ initialValues, refetch }) => {
   const [form] = Form.useForm();
   const queryClient = new QueryClient();
 
+  const validateMessages = {
+    required: "${label} is tidak boleh kosong!",
+  };
+
   const pendidikans = [
     "SD",
     "SLTP",
@@ -75,9 +79,11 @@ const FormProfile = ({ initialValues, refetch }) => {
 
   return (
     <Form
+      validateMessages={validateMessages}
       labelWrap
       initialValues={initialValues}
       {...layout}
+      scrollToFirstError
       onFinish={handleFinish}
       form={form}
       name="create-profile"
@@ -85,11 +91,17 @@ const FormProfile = ({ initialValues, refetch }) => {
       <Form.Item
         name="nama_gelar"
         label="Nama dan Gelar"
+        extra="Contoh Iput Taufiqurrohman Suwarto, S.Kom."
         rules={[{ required: true }]}
       >
         <Input />
       </Form.Item>
-      <Form.Item rules={[{ required: true }]} name="nip" label="NIP">
+      <Form.Item
+        rules={[{ required: true }]}
+        extra="NIP tanpa spasi"
+        name="nip"
+        label="NIP"
+      >
         <Input />
       </Form.Item>
       <Form.Item
@@ -104,9 +116,16 @@ const FormProfile = ({ initialValues, refetch }) => {
         name="tanggal_lahir"
         label="Tanggal Lahir"
       >
-        <DatePicker format={"YYYY-MM-DD"} />
+        <DatePicker format={"DD-MM-YYYY"} />
       </Form.Item>
-      <Form.Item rules={[{ required: true }]} name="alamat_email" label="Email">
+      <Form.Item
+        rules={[
+          { required: true },
+          { type: "email", message: "Format email harus sesuai" },
+        ]}
+        name="alamat_email"
+        label="Email"
+      >
         <Input />
       </Form.Item>
       <Form.Item
@@ -148,7 +167,7 @@ const FormProfile = ({ initialValues, refetch }) => {
         name="tmt_pangkat"
         label="TMT Pangkat"
       >
-        <DatePicker />
+        <DatePicker format={"DD-MM-YYYY"} />
       </Form.Item>
       <Form.Item
         rules={[{ required: true }]}
@@ -165,21 +184,30 @@ const FormProfile = ({ initialValues, refetch }) => {
         <Input />
       </Form.Item>
       <Form.Item
-        rules={[{ required: true }]}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
         name="tmt_jab_terakhir"
         label="TMT Jabatan Terakhir"
       >
-        <DatePicker />
+        <DatePicker format={"DD-MM-YYYY"} />
       </Form.Item>
       <Form.Item rules={[{ required: true }]} name="instansi" label="Instansi">
         <Input />
       </Form.Item>
       <Form.Item
-        rules={[{ required: true }]}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
         name="tmt_pengangkatan_pertama"
+        extra="TMT Pengangkatan Pertama dalam JPTP"
         label="TMT Pengangkatan Pertama"
       >
-        <DatePicker />
+        <DatePicker format={"DD-MM-YYYY"} />
       </Form.Item>
 
       <Form.Item {...tailLayout}>
@@ -219,15 +247,20 @@ const Resume = () => {
             refetch={refetch}
             initialValues={{
               ...data,
-              tanggal_lahir: data?.tanggal_lahir
-                ? moment(data?.tanggal_lahir)
+              tahun_lulus: data?.tahun_lulus
+                ? moment(data?.tahun_lulus).format("YYYY")
                 : "",
-              tmt_pangkat: data?.tmt_pangkat ? moment(data?.tmt_pangkat) : "",
+              tanggal_lahir: data?.tanggal_lahir
+                ? moment(data?.tanggal_lahir).format("DD-MM-YYYY")
+                : "",
+              tmt_pangkat: data?.tmt_pangkat
+                ? moment(data?.tmt_pangkat).format("DD-MM-YYYY")
+                : "",
               tmt_jab_terakhir: data?.tmt_jab_terakhir
-                ? moment(data?.tmt_jab_terakhir)
+                ? moment(data?.tmt_jab_terakhir).format("DD-MM-YYYY")
                 : "",
               tmt_pengangkatan_pertama: data?.tmt_pengangkatan_pertama
-                ? moment(data?.tmt_pengangkatan_pertama)
+                ? moment(data?.tmt_pengangkatan_pertama).format("DD-MM-YYYY")
                 : "",
             }}
             queryClient={queryClient}
