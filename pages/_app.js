@@ -1,5 +1,12 @@
+import "@ant-design/pro-layout/dist/layout.css";
+import { Spin } from "antd";
+import "antd/dist/antd.css";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
+import { useState } from "react";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+
 function MyApp({ Component, pageProps }) {
+  const [queryClient] = useState(() => new QueryClient());
   return (
     <SessionProvider
       session={pageProps?.session}
@@ -7,13 +14,17 @@ function MyApp({ Component, pageProps }) {
       baseUrl="/seleksi-jpt"
       refetchInterval={0}
     >
-      {Component.auth ? (
-        <Auth>
-          <Component {...pageProps} />;
-        </Auth>
-      ) : (
-        <Component {...pageProps} />
-      )}
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps?.dehydratedState}>
+          {Component.auth ? (
+            <Auth>
+              <Component {...pageProps} />;
+            </Auth>
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </Hydrate>
+      </QueryClientProvider>
     </SessionProvider>
   );
 }

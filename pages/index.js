@@ -1,13 +1,15 @@
-import { Button } from "antd";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  const { data } = useSession();
-  return (
-    <div>
-      {JSON.stringify(data)}
-      <Button onClick={signIn}>test</Button>
-      <Button onClick={signOut}>signout</Button>
-    </div>
-  );
+  const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated: () => signIn(),
+  });
+
+  if (status === "authenticated") {
+    router.push("/dashboard");
+  }
+  return null;
 }

@@ -1,10 +1,11 @@
 import prisma from "../lib/prisma";
 
 const create = async (req, res) => {
+  const { user } = req.currentUser;
   try {
     await prisma.profiles.create({
       data: {
-        user_id: "13",
+        user_id: user?.id,
         documents: {
           create: {},
         },
@@ -12,15 +13,16 @@ const create = async (req, res) => {
     });
     res.json({ code: 200, message: "created" });
   } catch (error) {
-    console.log("error");
+    console.log(error);
   }
 };
 
 const get = async (req, res) => {
+  const { user } = req.currentUser;
   try {
-    const result = await prisma.profiles.findMany({
+    const result = await prisma.profiles.findUnique({
       where: {
-        user_id: "13",
+        user_id: user?.id,
       },
       include: {
         documents: true,
@@ -32,9 +34,27 @@ const get = async (req, res) => {
   }
 };
 
-const submit = async (req, res) => {};
+const submit = async (req, res) => {
+  const { user } = req.currentUser;
+  try {
+  } catch (error) {}
+};
 
-const update = async (req, res) => {};
+const update = async (req, res) => {
+  const { user } = req.currentUser;
+  try {
+    const { body } = req;
+    await prisma.profiles.update({
+      data: body,
+      where: {
+        user_id: user?.id,
+      },
+    });
+    res.json({ code: 200, message: "success" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default {
   create,

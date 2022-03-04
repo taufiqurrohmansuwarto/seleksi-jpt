@@ -1,6 +1,8 @@
 const withAntdLess = require("next-plugin-antd-less");
 const isProd = process.env.NODE_ENV === "production";
 
+console.log(isProd);
+
 function getBasePath() {
   var basePath = "";
 
@@ -11,11 +13,11 @@ function getBasePath() {
       basePath = "/" + process.env.BASE_PATH;
     }
   }
-
   return basePath;
 }
 
 module.exports = withAntdLess({
+  basePath: "/seleksi-jpt",
   modifyVars: { "@primary-color": "#04f" }, // optional
   lessVarsFilePath: "./src/styles/variables.less", // optional
   lessVarsFilePathAppendToEndOfContent: false, // optional

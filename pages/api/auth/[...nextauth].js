@@ -13,6 +13,9 @@ export default NextAuth({
     colorScheme: "light",
   },
   callbacks: {
+    redirect: async (url, baseUrl) => {
+      return Promise.resolve(`${url?.baseUrl}${process.env.BASE_PATH}`);
+    },
     async session({ session, token }) {
       session.user.id = token.id;
       return session;
@@ -23,5 +26,9 @@ export default NextAuth({
       }
       return token;
     },
+  },
+  secret: process.env.SECRET,
+  jwt: {
+    secret: process.env.SECRET,
   },
 });
