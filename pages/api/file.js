@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import fileController from "../../../controller.js/file.controller";
+import fileController from "../../controller.js/file.controller";
 
 const handler = nc();
 
