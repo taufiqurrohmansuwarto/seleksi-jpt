@@ -1,6 +1,7 @@
 import nc from "next-connect";
 import profileController from "../../controller/profile.controller";
+import auth from "../../middleware/auth";
 
 const handler = nc();
 
-export default handler.post(profileController.submit);
+export default handler.use(auth).post(profileController.submit);

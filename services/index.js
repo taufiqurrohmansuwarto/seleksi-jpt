@@ -9,7 +9,7 @@ const createResume = (data) => {
 };
 
 const submitResume = () => {
-  return axios.post("/seleksi-jpt/api/submit-resume");
+  return axios.post("/seleksi-jpt/api/submit");
 };
 
 const updateResume = (data) => {

@@ -1,9 +1,11 @@
+import { useSession } from "next-auth/react";
 import Layout from "../src/components/Layout";
 
 const Dashboard = () => {
+  const { data } = useSession();
   return (
     <Layout title="Dashboard">
-      <div>hello</div>
+      <div>{JSON.stringify(data)}</div>
     </Layout>
   );
 };

@@ -301,7 +301,7 @@ const submit = async (req, res) => {
       "tanggal_lahir",
       "alamat_email",
       "no_hp",
-      "pendidikan_terakhi",
+      "pendidikan_terakhir",
       "tahun_lulus",
       "gol_pangkat",
       "tmt_pangkat",
@@ -319,13 +319,15 @@ const submit = async (req, res) => {
     } else {
       const dataProfile = profileProperties?.map((profile) => ({
         current: result[profile],
+        [profile]: result[profile],
       }));
       const dataDocument = documentProperties?.map((document) => ({
         current: result?.documents?.[document],
       }));
 
       const isCompletedProfile = dataProfile?.every((d) => !!d?.current);
-      const isCompletedDocument = dataDocument?.every((d) => !!d?.current);
+      const isCompletedDocument = dataDocument?.every((x) => !!x?.current);
+      console.log(dataProfile);
 
       if (isCompletedDocument && isCompletedProfile) {
         await prisma.profiles.update({
@@ -338,12 +340,10 @@ const submit = async (req, res) => {
         });
         res.status(200).json({ code: 200, message: "sukses" });
       } else {
-        res
-          .status(403)
-          .json({
-            code: 403,
-            message: "Profile atau dokumen belum terisi penu",
-          });
+        res.status(403).json({
+          code: 403,
+          message: "Profile atau dokumen belum terisi penu",
+        });
       }
     }
   } catch (error) {
