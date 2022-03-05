@@ -1,7 +1,7 @@
 const uploadFileMinio = (mc, fileBuffer, filename, size, mimetype) => {
   return new Promise((resolve, reject) => {
     mc.putObject(
-      "documents-seleksi-jpt",
+      "document-seleksi-jpt",
       `files/${filename}`,
       fileBuffer,
       size,

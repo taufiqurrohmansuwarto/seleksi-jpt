@@ -594,7 +594,6 @@ const File = ({
           <Button
             danger={!fileList?.length}
             loading={updateFileMutation.isLoading}
-            disabled={updateFileMutation.isLoading}
             icon={<UploadOutlined />}
           >
             {title}
