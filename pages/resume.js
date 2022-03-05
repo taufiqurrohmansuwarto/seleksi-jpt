@@ -1,16 +1,21 @@
+import { UploadOutlined } from "@ant-design/icons";
 import {
   Button,
+  Col,
   DatePicker,
   Form,
   Input,
   InputNumber,
   message,
   Result,
+  Row,
   Select,
   Skeleton,
+  Tooltip,
+  Upload,
 } from "antd";
 import moment from "moment";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { QueryClient, useMutation, useQuery } from "react-query";
 import services from "../services";
 import Layout from "../src/components/Layout";
@@ -73,12 +78,12 @@ const FormProfile = ({ initialValues, refetch }) => {
   });
 
   const layout = {
-    labelCol: { span: 2 },
-    wrapperCol: { span: 8 },
+    labelCol: { span: 8 },
+    wrapperCol: { span: 28 },
   };
 
   const tailLayout = {
-    wrapperCol: { offset: 2, span: 8 },
+    wrapperCol: { offset: 8, span: 28 },
   };
 
   const handleFinish = async (fieldValue) => {
@@ -93,164 +98,345 @@ const FormProfile = ({ initialValues, refetch }) => {
 
   return (
     <div>
-      <Form
-        validateMessages={validateMessages}
-        labelWrap
-        initialValues={initialValues}
-        {...layout}
-        scrollToFirstError
-        onFinish={handleFinish}
-        form={form}
-        name="create-profile"
-      >
-        <Form.Item
-          name="nama_gelar"
-          label="Nama dan Gelar"
-          extra="Contoh Iput Taufiqurrohman Suwarto, S.Kom."
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          extra="NIP tanpa spasi"
-          name="nip"
-          label="NIP"
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="tempat_lahir"
-          label="Tempat Lahir"
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="tanggal_lahir"
-          label="Tanggal Lahir"
-        >
-          <DatePicker format={"DD-MM-YYYY"} />
-        </Form.Item>
-        <Form.Item
-          rules={[
-            { required: true },
-            { type: "email", message: "Format email harus sesuai" },
-          ]}
-          name="alamat_email"
-          label="Email"
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="no_hp"
-          label="No. Handphone"
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="pendidikan_terakhir"
-          label="Pendidikan Terakhir"
-        >
-          <Select allowClear showSearch>
-            {pendidikans.map((d) => (
-              <Select.Option key={d} value={d}>
-                {d}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="tahun_lulus"
-          label="Tahun Lulus"
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="gol_pangkat"
-          label="Gol/Pangkat"
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="tmt_pangkat"
-          label="TMT Pangkat"
-        >
-          <DatePicker format={"DD-MM-YYYY"} />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="jabatan_terakhir"
-          label="Jabatan Terakhir"
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="eselon_terakhir"
-          label="Eselon Terakhir"
-        >
-          <Select allowClear showSearch>
-            {eselons?.map((e) => (
-              <Select.Option key={e} value={e}>
-                {e}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="tmt_jab_terakhir"
-          label="TMT Jabatan Terakhir"
-        >
-          <DatePicker format={"DD-MM-YYYY"} />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true }]}
-          name="instansi"
-          label="Instansi"
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="tmt_pengangkatan_pertama"
-          extra="TMT Pengangkatan Pertama dalam JPTP"
-          label="TMT Pengangkatan Pertama"
-        >
-          <DatePicker format={"DD-MM-YYYY"} />
-        </Form.Item>
-        <Form.Item {...tailLayout}>
-          <Button
-            htmlType="submit"
-            loading={updateMutation.isLoading}
-            type="primary"
+      <Row>
+        <Col span={12}>
+          <Form
+            validateMessages={validateMessages}
+            labelWrap
+            initialValues={initialValues}
+            {...layout}
+            scrollToFirstError
+            onFinish={handleFinish}
+            form={form}
+            name="create-profile"
           >
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-      <File />
+            <Form.Item
+              name="nama_gelar"
+              label="Nama dan Gelar"
+              extra="Contoh Iput Taufiqurrohman Suwarto, S.Kom."
+              rules={[{ required: true }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              extra="NIP tanpa spasi"
+              name="nip"
+              label="NIP"
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="tempat_lahir"
+              label="Tempat Lahir"
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="tanggal_lahir"
+              label="Tanggal Lahir"
+            >
+              <DatePicker format={"DD-MM-YYYY"} />
+            </Form.Item>
+            <Form.Item
+              rules={[
+                { required: true },
+                { type: "email", message: "Format email harus sesuai" },
+              ]}
+              name="alamat_email"
+              label="Email"
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="no_hp"
+              label="No. Handphone"
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="pendidikan_terakhir"
+              label="Pendidikan Terakhir"
+            >
+              <Select allowClear showSearch>
+                {pendidikans.map((d) => (
+                  <Select.Option key={d} value={d}>
+                    {d}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="tahun_lulus"
+              label="Tahun Lulus"
+            >
+              <InputNumber />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="gol_pangkat"
+              label="Gol/Pangkat"
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="tmt_pangkat"
+              label="TMT Pangkat"
+            >
+              <DatePicker format={"DD-MM-YYYY"} />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="jabatan_terakhir"
+              label="Jabatan Terakhir"
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="eselon_terakhir"
+              label="Eselon Terakhir"
+            >
+              <Select allowClear showSearch>
+                {eselons?.map((e) => (
+                  <Select.Option key={e} value={e}>
+                    {e}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              name="tmt_jab_terakhir"
+              label="TMT Jabatan Terakhir"
+            >
+              <DatePicker format={"DD-MM-YYYY"} />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true }]}
+              name="instansi"
+              label="Instansi"
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              name="tmt_pengangkatan_pertama"
+              extra="TMT Pengangkatan Pertama dalam JPTP"
+              label="TMT Pengangkatan Pertama"
+            >
+              <DatePicker format={"DD-MM-YYYY"} />
+            </Form.Item>
+            <Form.Item {...tailLayout}>
+              <Button
+                htmlType="submit"
+                loading={updateMutation.isLoading}
+                type="primary"
+              >
+                Rubah Profile
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+        <Col span={9} push={1}>
+          <div>
+            <File
+              description="Dokumen surat lamaran"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Dokumen Daftar Riwayat Hidup"
+              title="Daftar Riwayat Hidup"
+              property="drh"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Kartu Tanda Penduduk"
+              title="Kartu Tanda Penduduk"
+              property="ktp"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Pas foto berwarna terbaru ukuran 4x6"
+              title="Foto"
+              property="foto"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="SK Pangkat Terakhir"
+              title="SK Pangkat"
+              property="sk_pangkat"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="SK Pengangkatan dalam Jabatan Terakhir"
+              title="SK Pengangkatan jabatan terakhir"
+              property="sk_pengangkatan_jabatan_terakhir"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="SK Pengangkatan Pertama Kali dalam Jabatan Pimpinan Tinggi Pratama (Eselon II.a), dikecualikan bagi pelamar yang berasal dari Jabatan Fungsional"
+              title="SK Pengangkatan Pertama Kali"
+              property="sk_pengangkatan_pertama_kali"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Ijazah Diploma (DIV)/Sarjana (S-1) dan Ijazah (S-2/S-3 jika ada)"
+              title="Ijazah"
+              property="ijazah"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="STTP Pendidikan dan Pelatihan Kepemimpinan"
+              title="STTP"
+              property="sttp"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Penilaian Prestasi Kerja 2 (dua) tahun terakhir (tahun 2020 dan 2021)"
+              title="SKP"
+              property="skp"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Bukti penyerahan LHKPN Tahun 2021"
+              title="LHKPN"
+              property="lhkpn"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Bukti penyerahan SPT Tahun 2021"
+              title="SPT"
+              property="spt"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Surat Persetujuan/Rekomendasi dari Pejabat Pembina Kepegawaian (PPK)"
+              title="Surat Rekomendasi"
+              property="surat_rekomendasi"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Surat Pernyataan tidak sedang dalam proses peradilan pidana"
+              title="Surat Pernyataan Tidak Pidana"
+              property="surat_pernyataan_tidak_pidana"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Surat Pernyataan tidak pernah dijatuhi hukuman disiplin sesuai dengan ketentuan peraturan perundang-undangan yang berlaku"
+              title="Surat Pernyataan tidak dijatuhi hukdis"
+              property="surat_pernyataan_tidak_dijatuhi_hukdis"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Surat pernyataan Pakta Integritas "
+              title="Surat Pakta Integritas"
+              property="surat_keterangan_pakta_integritas"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Surat Keterangan Sehat Jasmani dan Rohani dari Rumah Sakit Pemerintah"
+              title="Surat Keterangan Jasmani dan Rohani"
+              property="surat_keterangan_jasmani_rohani"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+            <File
+              description="Surat Keterangan Bebas NAPZA dari Rumah Sakit Pemerintah"
+              title="Surat Keterangan Bebas Napza"
+              property="surat_keterangan_bebas_napza"
+              documents={initialValues?.documents}
+              queryClient={queryClient}
+            />
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };
 
-const File = ({ uploadFile }) => {
-  return <div>Hello world</div>;
+const File = ({
+  title = "Surat Lamaran",
+  property = "surat_lamaran",
+  documents,
+  queryClient,
+  description,
+}) => {
+  const [fileList, setFileList] = useState(documents[property]);
+
+  const updateFileMutation = useMutation((data) => services.updateFile(data), {
+    onSettled: async () => {
+      await queryClient.invalidateQueries("resume");
+    },
+    onSuccess: (result) => {
+      const { data } = result;
+      setFileList(data?.data);
+    },
+  });
+
+  const props = {
+    maxCount: 1,
+    accept: ".pdf",
+    beforeUpload: async () => {},
+    showUploadList: {
+      showRemoveIcon: false,
+    },
+    customRequest: async (options) => {
+      const { file, onSuccess, onError, onProgress } = options;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("property", property);
+      try {
+        await updateFileMutation.mutateAsync(formData);
+        console.log("test");
+        onSuccess("Ok");
+      } catch (error) {
+        onError({ error });
+      }
+    },
+  };
+
+  return (
+    <div style={{ marginBottom: 8 }}>
+      <Upload extra="test" fileList={fileList} {...props}>
+        <Tooltip title={description}>
+          <Button danger={!fileList.length} icon={<UploadOutlined />}>
+            {title}
+          </Button>
+        </Tooltip>
+      </Upload>
+    </div>
+  );
 };
 
 const Resume = () => {

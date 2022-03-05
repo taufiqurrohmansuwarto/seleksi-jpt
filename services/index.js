@@ -17,7 +17,7 @@ const updateResume = (data) => {
 };
 
 const updateFile = (data) => {
-  return axios.post("/seleksi-jpt/api/documents", data, {
+  return axios.patch("/seleksi-jpt/api/file", data, {
     headers: {
       "Content-Type": "multipart/formData",
     },

@@ -1,7 +1,7 @@
 import multer from "multer";
 import nc from "next-connect";
 import fileController from "../../controller/file.controller";
-import uploadFile from "../../middleware/upload-file";
+import auth from "../../middleware/auth";
 
 export const config = {
   api: {
@@ -12,5 +12,5 @@ export const config = {
 const handler = nc();
 
 export default handler
-  .use(uploadFile)
+  .use(auth)
   .patch(multer().single("file"), fileController.updateFile);

@@ -1,5 +1,26 @@
 import prisma from "../lib/prisma";
 
+const documentProperties = [
+  "surat_lamaran",
+  "drh",
+  "ktp",
+  "foto",
+  "sk_pangkat",
+  "sk_pengangkatan_jabatan_terakhir",
+  "sk_pengangkatan_pertama_kali",
+  "ijazah",
+  "sttp",
+  "skp",
+  "lhkpn",
+  "spt",
+  "surat_rekomendasi",
+  "surat_pernyataan_tidak_pidana",
+  "surat_pernyataan_tidak_dijatuhi_hukdis",
+  "surat_keterangan_pakta_integritas",
+  "surat_keterangan_jasmani_rohani",
+  "surat_keterangan_bebas_napza",
+];
+
 const create = async (req, res) => {
   const { user } = req.currentUser;
   try {
@@ -20,6 +41,7 @@ const create = async (req, res) => {
 const get = async (req, res) => {
   const { user } = req.currentUser;
   try {
+    let hasil;
     const result = await prisma.profiles.findUnique({
       where: {
         user_id: user?.id,
@@ -28,7 +50,212 @@ const get = async (req, res) => {
         documents: true,
       },
     });
-    res.json(result);
+
+    if (!result) {
+      hasil = result;
+    } else {
+      const userDocument = result?.documents;
+      const currentData = {
+        surat_lamaran: userDocument["surat_lamaran"]
+          ? [
+              {
+                id: userDocument["surat_lamaran"],
+                name: userDocument["surat_lamaran"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["surat_lamaran"]}`,
+              },
+            ]
+          : [],
+        drh: userDocument["drh"]
+          ? [
+              {
+                id: userDocument["drh"],
+                name: userDocument["drh"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["drh"]}`,
+              },
+            ]
+          : [],
+        ktp: userDocument["ktp"]
+          ? [
+              {
+                id: userDocument["ktp"],
+                name: userDocument["ktp"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["ktp"]}`,
+              },
+            ]
+          : [],
+        foto: userDocument["foto"]
+          ? [
+              {
+                id: userDocument["foto"],
+                name: userDocument["foto"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["foto"]}`,
+              },
+            ]
+          : [],
+        sk_pangkat: userDocument["sk_pangkat"]
+          ? [
+              {
+                id: userDocument["sk_pangkat"],
+                name: userDocument["sk_pangkat"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["sk_pangkat"]}`,
+              },
+            ]
+          : [],
+        sk_pengangkatan_jabatan_terakhir: userDocument[
+          "sk_pengangkatan_jabatan_terakhir"
+        ]
+          ? [
+              {
+                id: userDocument["sk_pengangkatan_jabatan_terakhir"],
+                name: userDocument["sk_pengangkatan_jabatan_terakhir"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["sk_pengangkatan_jabatan_terakhir"]}`,
+              },
+            ]
+          : [],
+        sk_pengangkatan_pertama_kali: userDocument[
+          "sk_pengangkatan_pertama_kali"
+        ]
+          ? [
+              {
+                id: userDocument["sk_pengangkatan_pertama_kali"],
+                name: userDocument["sk_pengangkatan_pertama_kali"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["sk_pengangkatan_pertama_kali"]}`,
+              },
+            ]
+          : [],
+        ijazah: userDocument["ijazah"]
+          ? [
+              {
+                id: userDocument["ijazah"],
+                name: userDocument["ijazah"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["ijazah"]}`,
+              },
+            ]
+          : [],
+        sttp: userDocument["sttp"]
+          ? [
+              {
+                id: userDocument["sttp"],
+                name: userDocument["sttp"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["sttp"]}`,
+              },
+            ]
+          : [],
+        skp: userDocument["skp"]
+          ? [
+              {
+                id: userDocument["skp"],
+                name: userDocument["skp"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["skp"]}`,
+              },
+            ]
+          : [],
+        lhkpn: userDocument["lhkpn"]
+          ? [
+              {
+                id: userDocument["lhkpn"],
+                name: userDocument["lhkpn"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["lhkpn"]}`,
+              },
+            ]
+          : [],
+        spt: userDocument["spt"]
+          ? [
+              {
+                id: userDocument["spt"],
+                name: userDocument["spt"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["spt"]}`,
+              },
+            ]
+          : [],
+        surat_rekomendasi: userDocument["surat_rekomendasi"]
+          ? [
+              {
+                id: userDocument["surat_rekomendasi"],
+                name: userDocument["surat_rekomendasi"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["surat_rekomendasi"]}`,
+              },
+            ]
+          : [],
+        surat_pernyataan_tidak_pidana: userDocument[
+          "surat_pernyataan_tidak_pidana"
+        ]
+          ? [
+              {
+                id: userDocument["surat_pernyataan_tidak_pidana"],
+                name: userDocument["surat_pernyataan_tidak_pidana"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["surat_pernyataan_tidak_pidana"]}`,
+              },
+            ]
+          : [],
+        surat_pernyataan_tidak_dijatuhi_hukdis: userDocument[
+          "surat_pernyataan_tidak_dijatuhi_hukdis"
+        ]
+          ? [
+              {
+                id: userDocument["surat_pernyataan_tidak_dijatuhi_hukdis"],
+                name: userDocument["surat_pernyataan_tidak_dijatuhi_hukdis"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["surat_pernyataan_tidak_dijatuhi_hukdis"]}`,
+              },
+            ]
+          : [],
+        surat_keterangan_pakta_integritas: userDocument[
+          "surat_keterangan_pakta_integritas"
+        ]
+          ? [
+              {
+                id: userDocument["surat_keterangan_pakta_integritas"],
+                name: userDocument["surat_keterangan_pakta_integritas"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["surat_keterangan_pakta_integritas"]}`,
+              },
+            ]
+          : [],
+        surat_keterangan_jasmani_rohani: userDocument[
+          "surat_keterangan_jasmani_rohani"
+        ]
+          ? [
+              {
+                id: userDocument["surat_keterangan_jasmani_rohani"],
+                name: userDocument["surat_keterangan_jasmani_rohani"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["surat_keterangan_jasmani_rohani"]}`,
+              },
+            ]
+          : [],
+        surat_keterangan_bebas_napza: userDocument[
+          "surat_keterangan_bebas_napza"
+        ]
+          ? [
+              {
+                id: userDocument["surat_keterangan_bebas_napza"],
+                name: userDocument["surat_keterangan_bebas_napza"],
+                status: "done",
+                url: `${process.env.FILE_URL}/${userDocument["surat_keterangan_bebas_napza"]}`,
+              },
+            ]
+          : [],
+      };
+
+      hasil = { ...result, documents: { ...userDocument, ...currentData } };
+    }
+
+    res.json(hasil);
   } catch (error) {
     console.log(error);
   }

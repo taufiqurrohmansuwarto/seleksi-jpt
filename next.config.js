@@ -1,8 +1,6 @@
 const withAntdLess = require("next-plugin-antd-less");
 const isProd = process.env.NODE_ENV === "production";
 
-console.log(isProd);
-
 function getBasePath() {
   var basePath = "";
 
