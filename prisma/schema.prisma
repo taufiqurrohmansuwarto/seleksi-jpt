@@ -35,13 +35,13 @@ model documents {
   ijazah                                             String?
   ijazah_is_verified                                 Boolean?  @default(false)
   sttp                                               String?
-  sttp__is_verified                                  Boolean?  @default(false)
+  sttp_is_verified                                   Boolean?  @default(false)
   skp                                                String?
   skp_is_verified                                    Boolean?  @default(false)
   lhkpn                                              String?
   lhkpn_is_verified                                  Boolean?  @default(false)
   spt                                                String?
-  spt__is_verified                                   Boolean?  @default(false)
+  spt_is_verified                                    Boolean?  @default(false)
   surat_rekomendasi                                  String?
   surat_rekomendasi_is_verified                      Boolean?  @default(false)
   surat_pernyataan_tidak_pidana                      String?
