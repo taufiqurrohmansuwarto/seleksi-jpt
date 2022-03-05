@@ -3,6 +3,9 @@ import GoogleProvider from "next-auth/providers/google";
 
 export default NextAuth({
   // Configure one or more authentication providers
+  pages: {
+    signIn: "/seleksi-jpt/signin",
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
