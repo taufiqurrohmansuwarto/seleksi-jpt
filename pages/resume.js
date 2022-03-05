@@ -591,7 +591,12 @@ const File = ({
     <div style={{ marginBottom: 8 }}>
       <Upload {...props}>
         <Tooltip title={description}>
-          <Button danger={!fileList?.length} icon={<UploadOutlined />}>
+          <Button
+            danger={!fileList?.length}
+            loading={updateFileMutation.isLoading}
+            disabled={updateFileMutation.isLoading}
+            icon={<UploadOutlined />}
+          >
             {title}
           </Button>
         </Tooltip>
