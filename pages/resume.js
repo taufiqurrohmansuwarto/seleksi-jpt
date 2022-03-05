@@ -78,12 +78,12 @@ const FormProfile = ({ initialValues, refetch }) => {
   });
 
   const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 28 },
+    labelCol: { span: 5 },
+    wrapperCol: { span: 20 },
   };
 
   const tailLayout = {
-    wrapperCol: { offset: 8, span: 28 },
+    wrapperCol: { offset: 5, span: 20 },
   };
 
   const handleFinish = async (fieldValue) => {
@@ -99,7 +99,7 @@ const FormProfile = ({ initialValues, refetch }) => {
   return (
     <div>
       <Row>
-        <Col span={12}>
+        <Col span={10}>
           <Form
             validateMessages={validateMessages}
             labelWrap
@@ -253,132 +253,137 @@ const FormProfile = ({ initialValues, refetch }) => {
           </Form>
         </Col>
         <Col span={9} push={1}>
-          <div>
-            <File
-              description="Dokumen surat lamaran"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Dokumen Daftar Riwayat Hidup"
-              title="Daftar Riwayat Hidup"
-              property="drh"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Kartu Tanda Penduduk"
-              title="Kartu Tanda Penduduk"
-              property="ktp"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Pas foto berwarna terbaru ukuran 4x6"
-              title="Foto"
-              property="foto"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="SK Pangkat Terakhir"
-              title="SK Pangkat"
-              property="sk_pangkat"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="SK Pengangkatan dalam Jabatan Terakhir"
-              title="SK Pengangkatan jabatan terakhir"
-              property="sk_pengangkatan_jabatan_terakhir"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="SK Pengangkatan Pertama Kali dalam Jabatan Pimpinan Tinggi Pratama (Eselon II.a), dikecualikan bagi pelamar yang berasal dari Jabatan Fungsional"
-              title="SK Pengangkatan Pertama Kali"
-              property="sk_pengangkatan_pertama_kali"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Ijazah Diploma (DIV)/Sarjana (S-1) dan Ijazah (S-2/S-3 jika ada)"
-              title="Ijazah"
-              property="ijazah"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="STTP Pendidikan dan Pelatihan Kepemimpinan"
-              title="STTP"
-              property="sttp"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Penilaian Prestasi Kerja 2 (dua) tahun terakhir (tahun 2020 dan 2021)"
-              title="SKP"
-              property="skp"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Bukti penyerahan LHKPN Tahun 2021"
-              title="LHKPN"
-              property="lhkpn"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Bukti penyerahan SPT Tahun 2021"
-              title="SPT"
-              property="spt"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Surat Persetujuan/Rekomendasi dari Pejabat Pembina Kepegawaian (PPK)"
-              title="Surat Rekomendasi"
-              property="surat_rekomendasi"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Surat Pernyataan tidak sedang dalam proses peradilan pidana"
-              title="Surat Pernyataan Tidak Pidana"
-              property="surat_pernyataan_tidak_pidana"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Surat Pernyataan tidak pernah dijatuhi hukuman disiplin sesuai dengan ketentuan peraturan perundang-undangan yang berlaku"
-              title="Surat Pernyataan tidak dijatuhi hukdis"
-              property="surat_pernyataan_tidak_dijatuhi_hukdis"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Surat pernyataan Pakta Integritas "
-              title="Surat Pakta Integritas"
-              property="surat_keterangan_pakta_integritas"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Surat Keterangan Sehat Jasmani dan Rohani dari Rumah Sakit Pemerintah"
-              title="Surat Keterangan Jasmani dan Rohani"
-              property="surat_keterangan_jasmani_rohani"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-            <File
-              description="Surat Keterangan Bebas NAPZA dari Rumah Sakit Pemerintah"
-              title="Surat Keterangan Bebas Napza"
-              property="surat_keterangan_bebas_napza"
-              documents={initialValues?.documents}
-              queryClient={queryClient}
-            />
-          </div>
+          <Row>
+            <Col span={12}>
+              <File
+                description="Dokumen surat lamaran"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Dokumen Daftar Riwayat Hidup"
+                title="Daftar Riwayat Hidup"
+                property="drh"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Kartu Tanda Penduduk"
+                title="Kartu Tanda Penduduk"
+                property="ktp"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Pas foto berwarna terbaru ukuran 4x6"
+                title="Foto"
+                property="foto"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="SK Pangkat Terakhir"
+                title="SK Pangkat"
+                property="sk_pangkat"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="SK Pengangkatan dalam Jabatan Terakhir"
+                title="SK Pengangkatan jabatan terakhir"
+                property="sk_pengangkatan_jabatan_terakhir"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="SK Pengangkatan Pertama Kali dalam Jabatan Pimpinan Tinggi Pratama (Eselon II.a), dikecualikan bagi pelamar yang berasal dari Jabatan Fungsional"
+                title="SK Pengangkatan Pertama Kali"
+                property="sk_pengangkatan_pertama_kali"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Ijazah Diploma (DIV)/Sarjana (S-1) dan Ijazah (S-2/S-3 jika ada)"
+                title="Ijazah"
+                property="ijazah"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+            </Col>
+            <Col span={12}>
+              <File
+                description="STTP Pendidikan dan Pelatihan Kepemimpinan"
+                title="STTP"
+                property="sttp"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Penilaian Prestasi Kerja 2 (dua) tahun terakhir (tahun 2020 dan 2021)"
+                title="SKP"
+                property="skp"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Bukti penyerahan LHKPN Tahun 2021"
+                title="LHKPN"
+                property="lhkpn"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+
+              <File
+                description="Bukti penyerahan SPT Tahun 2021"
+                title="SPT"
+                property="spt"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Surat Persetujuan/Rekomendasi dari Pejabat Pembina Kepegawaian (PPK)"
+                title="Surat Rekomendasi"
+                property="surat_rekomendasi"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Surat Pernyataan tidak sedang dalam proses peradilan pidana"
+                title="Surat Pernyataan Tidak Pidana"
+                property="surat_pernyataan_tidak_pidana"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Surat Pernyataan tidak pernah dijatuhi hukuman disiplin sesuai dengan ketentuan peraturan perundang-undangan yang berlaku"
+                title="Surat Pernyataan tidak dijatuhi hukdis"
+                property="surat_pernyataan_tidak_dijatuhi_hukdis"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Surat pernyataan Pakta Integritas "
+                title="Surat Pakta Integritas"
+                property="surat_keterangan_pakta_integritas"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Surat Keterangan Sehat Jasmani dan Rohani dari Rumah Sakit Pemerintah"
+                title="Surat Keterangan Jasmani dan Rohani"
+                property="surat_keterangan_jasmani_rohani"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+              <File
+                description="Surat Keterangan Bebas NAPZA dari Rumah Sakit Pemerintah"
+                title="Surat Keterangan Bebas Napza"
+                property="surat_keterangan_bebas_napza"
+                documents={initialValues?.documents}
+                queryClient={queryClient}
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </div>
@@ -462,7 +467,7 @@ const Resume = () => {
   };
 
   return (
-    <Layout title="Resume">
+    <Layout title="Formulir Pendaftaran">
       <Skeleton active loading={isLoading}>
         {data ? (
           <FormProfile

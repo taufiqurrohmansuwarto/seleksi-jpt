@@ -4,7 +4,7 @@ const path = require("path");
 
 const updateFile = async (req, res) => {
   try {
-    const { buffer, originalname, size } = req.file;
+    const { buffer, originalname, size, mimetype } = req.file;
     const { property } = req.body;
     const { user } = req.currentUser;
 
@@ -12,7 +12,7 @@ const updateFile = async (req, res) => {
     const currentFilename = `${user?.id}_${property}${extFile}`;
 
     const mc = req.minio;
-    await uploadFileMinio(mc, buffer, currentFilename, size);
+    await uploadFileMinio(mc, buffer, currentFilename, size, mimetype);
     const result = await prisma.documents.update({
       data: {
         [property]: currentFilename,
