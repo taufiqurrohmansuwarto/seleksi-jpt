@@ -316,8 +316,8 @@ const FormProfile = ({ initialValues, refetch }) => {
     const data = documentProperties.map((d) => ({ current: documents[d] }));
     const isDocumentCompleted = data?.every((d) => !!d?.current?.length);
 
-    const secondData = profileProperties.map((p) => ({ [p]: last[p] }));
-    const isProfileCompleted = secondData?.every((e) => !!e);
+    const secondData = profileProperties.map((p) => ({ current: last[p] }));
+    const isProfileCompleted = secondData?.every((e) => !!e?.current);
 
     if (current === 0 && isProfileCompleted) {
       return false;
