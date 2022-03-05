@@ -3,6 +3,7 @@ import {
   DatePicker,
   Form,
   Input,
+  InputNumber,
   message,
   Result,
   Select,
@@ -49,6 +50,17 @@ const FormProfile = ({ initialValues, refetch }) => {
     "S-3",
   ];
 
+  const eselons = [
+    "I.a",
+    "I.b",
+    "II.a",
+    "II.b",
+    "III.a",
+    "III.b",
+    "IV.a",
+    "IV.b",
+  ];
+
   useEffect(() => {}, [initialValues]);
 
   const updateMutation = useMutation((data) => services.updateResume(data), {
@@ -72,155 +84,173 @@ const FormProfile = ({ initialValues, refetch }) => {
   const handleFinish = async (fieldValue) => {
     const values = {
       ...fieldValue,
-      tahun_lulus: parseInt(fieldValue["tahun_lulus"].format("YYYY"), 10),
     };
+
+    console.log(values);
+
     await updateMutation.mutateAsync(values);
   };
 
   return (
-    <Form
-      validateMessages={validateMessages}
-      labelWrap
-      initialValues={initialValues}
-      {...layout}
-      scrollToFirstError
-      onFinish={handleFinish}
-      form={form}
-      name="create-profile"
-    >
-      <Form.Item
-        name="nama_gelar"
-        label="Nama dan Gelar"
-        extra="Contoh Iput Taufiqurrohman Suwarto, S.Kom."
-        rules={[{ required: true }]}
+    <div>
+      <Form
+        validateMessages={validateMessages}
+        labelWrap
+        initialValues={initialValues}
+        {...layout}
+        scrollToFirstError
+        onFinish={handleFinish}
+        form={form}
+        name="create-profile"
       >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        extra="NIP tanpa spasi"
-        name="nip"
-        label="NIP"
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        name="tempat_lahir"
-        label="Tempat Lahir"
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        name="tanggal_lahir"
-        label="Tanggal Lahir"
-      >
-        <DatePicker format={"DD-MM-YYYY"} />
-      </Form.Item>
-      <Form.Item
-        rules={[
-          { required: true },
-          { type: "email", message: "Format email harus sesuai" },
-        ]}
-        name="alamat_email"
-        label="Email"
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        name="no_hp"
-        label="No. Handphone"
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        name="pendidikan_terakhir"
-        label="Pendidikan Terakhir"
-      >
-        <Select allowClear showSearch>
-          {pendidikans.map((d) => (
-            <Select.Option key={d} value={d}>
-              {d}
-            </Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        name="tahun_lulus"
-        label="Tahun Lulus"
-      >
-        <DatePicker picker="year" format={"YYYY"} />
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        name="gol_pangkat"
-        label="Gol/Pangkat"
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        name="tmt_pangkat"
-        label="TMT Pangkat"
-      >
-        <DatePicker format={"DD-MM-YYYY"} />
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        name="jabatan_terakhir"
-        label="Jabatan Terakhir"
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        rules={[{ required: true }]}
-        name="eselon_terakhir"
-        label="Eselon Terakhir"
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-        name="tmt_jab_terakhir"
-        label="TMT Jabatan Terakhir"
-      >
-        <DatePicker format={"DD-MM-YYYY"} />
-      </Form.Item>
-      <Form.Item rules={[{ required: true }]} name="instansi" label="Instansi">
-        <Input />
-      </Form.Item>
-      <Form.Item
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-        name="tmt_pengangkatan_pertama"
-        extra="TMT Pengangkatan Pertama dalam JPTP"
-        label="TMT Pengangkatan Pertama"
-      >
-        <DatePicker format={"DD-MM-YYYY"} />
-      </Form.Item>
-
-      <Form.Item {...tailLayout}>
-        <Button
-          htmlType="submit"
-          loading={updateMutation.isLoading}
-          type="primary"
+        <Form.Item
+          name="nama_gelar"
+          label="Nama dan Gelar"
+          extra="Contoh Iput Taufiqurrohman Suwarto, S.Kom."
+          rules={[{ required: true }]}
         >
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+          <Input />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          extra="NIP tanpa spasi"
+          name="nip"
+          label="NIP"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="tempat_lahir"
+          label="Tempat Lahir"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="tanggal_lahir"
+          label="Tanggal Lahir"
+        >
+          <DatePicker format={"DD-MM-YYYY"} />
+        </Form.Item>
+        <Form.Item
+          rules={[
+            { required: true },
+            { type: "email", message: "Format email harus sesuai" },
+          ]}
+          name="alamat_email"
+          label="Email"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="no_hp"
+          label="No. Handphone"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="pendidikan_terakhir"
+          label="Pendidikan Terakhir"
+        >
+          <Select allowClear showSearch>
+            {pendidikans.map((d) => (
+              <Select.Option key={d} value={d}>
+                {d}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="tahun_lulus"
+          label="Tahun Lulus"
+        >
+          <InputNumber />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="gol_pangkat"
+          label="Gol/Pangkat"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="tmt_pangkat"
+          label="TMT Pangkat"
+        >
+          <DatePicker format={"DD-MM-YYYY"} />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="jabatan_terakhir"
+          label="Jabatan Terakhir"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="eselon_terakhir"
+          label="Eselon Terakhir"
+        >
+          <Select allowClear showSearch>
+            {eselons?.map((e) => (
+              <Select.Option key={e} value={e}>
+                {e}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="tmt_jab_terakhir"
+          label="TMT Jabatan Terakhir"
+        >
+          <DatePicker format={"DD-MM-YYYY"} />
+        </Form.Item>
+        <Form.Item
+          rules={[{ required: true }]}
+          name="instansi"
+          label="Instansi"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="tmt_pengangkatan_pertama"
+          extra="TMT Pengangkatan Pertama dalam JPTP"
+          label="TMT Pengangkatan Pertama"
+        >
+          <DatePicker format={"DD-MM-YYYY"} />
+        </Form.Item>
+        <Form.Item {...tailLayout}>
+          <Button
+            htmlType="submit"
+            loading={updateMutation.isLoading}
+            type="primary"
+          >
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+      <File />
+    </div>
   );
+};
+
+const File = ({ uploadFile }) => {
+  return <div>Hello world</div>;
 };
 
 const Resume = () => {
@@ -230,6 +260,12 @@ const Resume = () => {
   const queryClient = new QueryClient();
 
   const createMutation = useMutation(() => services.createResume(), {
+    onSettled: async () => {
+      await queryClient.invalidateQueries("resume");
+    },
+  });
+
+  const updateFileMutation = useMutation((data) => services.updateFile(data), {
     onSettled: async () => {
       await queryClient.invalidateQueries("resume");
     },
@@ -247,20 +283,15 @@ const Resume = () => {
             refetch={refetch}
             initialValues={{
               ...data,
-              tahun_lulus: data?.tahun_lulus
-                ? moment(data?.tahun_lulus).format("YYYY")
-                : "",
               tanggal_lahir: data?.tanggal_lahir
-                ? moment(data?.tanggal_lahir).format("DD-MM-YYYY")
+                ? moment(data?.tanggal_lahir)
                 : "",
-              tmt_pangkat: data?.tmt_pangkat
-                ? moment(data?.tmt_pangkat).format("DD-MM-YYYY")
-                : "",
+              tmt_pangkat: data?.tmt_pangkat ? moment(data?.tmt_pangkat) : "",
               tmt_jab_terakhir: data?.tmt_jab_terakhir
-                ? moment(data?.tmt_jab_terakhir).format("DD-MM-YYYY")
+                ? moment(data?.tmt_jab_terakhir)
                 : "",
               tmt_pengangkatan_pertama: data?.tmt_pengangkatan_pertama
-                ? moment(data?.tmt_pengangkatan_pertama).format("DD-MM-YYYY")
+                ? moment(data?.tmt_pengangkatan_pertama)
                 : "",
             }}
             queryClient={queryClient}

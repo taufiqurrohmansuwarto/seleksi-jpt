@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import profileController from "../../controller.js/profile.controller";
+import profileController from "../../controller/profile.controller";
 
 const handler = nc();
 
