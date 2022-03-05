@@ -411,8 +411,21 @@ const File = ({
 
   const props = {
     maxCount: 1,
-    accept: ".pdf",
-    beforeUpload: async () => {},
+    accept: ".pdf,.png,.jpg",
+    beforeUpload: function (file) {
+      const isJpgOrPngorPDF =
+        file.type === "image/jpeg" ||
+        file.type === "image/png" ||
+        file.type === "application/pdf";
+      if (!isJpgOrPngorPDF) {
+        message.error("You can only upload JPG/PNG/PDF file!");
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        message.error("file must smaller than 2MB!");
+      }
+      return isJpgOrPngorPDF && isLt2M;
+    },
     showUploadList: {
       showRemoveIcon: false,
     },
