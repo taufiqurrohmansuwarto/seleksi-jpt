@@ -357,7 +357,7 @@ const FormProfile = ({ initialValues, refetch }) => {
         <>
           <Alert
             message="Perhatian"
-            description="Dokumen yang diupload merupakan dokumen asli yang discan. Dapat terbaca dan terliha dengan jelas"
+            description="Dokumen yang diupload merupakan dokumen asli yang discan. Dapat terbaca dan terlihat dengan jelas. Teliti kembali dokumen yang sudah diupload"
             showIcon
             type="warning"
           />
