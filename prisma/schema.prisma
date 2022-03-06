@@ -8,7 +8,7 @@ datasource db {
 }
 
 model admin {
-  id         String     @id
+  id         Int        @id @default(autoincrement()) @db.Integer
   username   String     @unique @db.VarChar(200)
   email      String     @default("bkd.jatimprov.go.id")
   picture    String     @default("https://master.bkd.jatimprov.go.id/images/foto_kosong.jpg")
@@ -102,7 +102,7 @@ model profiles {
   is_correction                        Boolean?
   correction_date                      DateTime?
   keterangan                           String?
-  korektor                             String?
+  korektor                             Int?
   admin                                admin?     @relation(fields: [korektor], references: [id], onDelete: Cascade)
   documents                            documents?
 }
