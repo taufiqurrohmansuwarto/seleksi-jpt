@@ -1,7 +1,7 @@
 import {
   CheckCircleTwoTone,
   ExclamationCircleTwoTone,
-  UploadOutlined
+  UploadOutlined,
 } from "@ant-design/icons";
 import {
   Alert,
@@ -21,9 +21,10 @@ import {
   Space,
   Steps,
   Tooltip,
-  Upload
+  Upload,
 } from "antd";
 import moment from "moment";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { QueryClient, useMutation, useQuery } from "react-query";
 import services from "../services";
@@ -44,6 +45,7 @@ const NoData = ({ onSubmit, loading }) => {
 };
 
 const FormProfile = ({ initialValues, refetch }) => {
+  const router = useRouter();
   const [form] = Form.useForm();
   const queryClient = new QueryClient();
 
@@ -377,6 +379,13 @@ const FormProfile = ({ initialValues, refetch }) => {
   const submitMutation = useMutation(() => services.submitResume(), {
     onSettled: async () => {
       await queryClient.invalidateQueries("resume");
+    },
+    onSuccess: () => {
+      message.success("Form berhasil di submit");
+      router.push("/dashboard");
+    },
+    onError: (e) => {
+      message.error("Gagal melakukan submit form", e);
     },
   });
 
