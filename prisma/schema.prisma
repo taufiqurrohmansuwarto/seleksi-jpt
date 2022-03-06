@@ -98,7 +98,9 @@ model profiles {
   created_at                           DateTime   @default(now()) @db.Timestamp(6)
   user_id                              String     @id @unique(map: "profiles_user_id_idx") @db.VarChar(200)
   updated_at                           DateTime?  @db.Timestamp(6)
-  is_qualified                         Boolean?   @default(false)
+  is_qualified                         Boolean?
+  is_correction                        Boolean?
+  correction_date                      DateTime?
   keterangan                           String?
   korektor                             String?
   admin                                admin?     @relation(fields: [korektor], references: [id], onDelete: Cascade)

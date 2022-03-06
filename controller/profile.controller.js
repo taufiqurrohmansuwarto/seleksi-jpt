@@ -27,6 +27,7 @@ const create = async (req, res) => {
     await prisma.profiles.create({
       data: {
         user_id: user?.id,
+        alamat_email: user?.email,
         documents: {
           create: {},
         },
