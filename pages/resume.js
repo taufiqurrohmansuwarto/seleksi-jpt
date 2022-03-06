@@ -702,7 +702,7 @@ const Resume = () => {
               <Result
                 status="success"
                 title="Form Pendaftaran anda berhasil di submit"
-                subTitle="Form berhasil disubmit"
+                subTitle="Silahkan menunggu pengumuman selanjutnya di bkd.jatimprov.go.id"
               />
             ) : (
               <FormProfile

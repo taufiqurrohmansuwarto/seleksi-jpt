@@ -1,4 +1,4 @@
-import { Alert, Button, Card } from "antd";
+import { Alert, Button, Card, Divider } from "antd";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
@@ -7,13 +7,17 @@ import Layout from "../src/components/Layout";
 
 const ResumeTerkirim = () => {
   return (
-    <Alert
-      description="Selamat anda berhasil mengirimkan form seleksi JPT Madya Pemerintah
+    <>
+      <Divider />
+      <Alert
+        message="Pendaftaran Berhasil"
+        description="Selamat anda berhasil mengirimkan form seleksi JPT Madya Pemerintah
       Provinsi Jawa Timur, Silahkan menunggu pengumuman selanjutnya dib
       bkd.jatimprov.go.id"
-      type="success"
-      showIcon
-    />
+        type="success"
+        showIcon
+      />
+    </>
   );
 };
 
