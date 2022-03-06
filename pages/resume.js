@@ -26,7 +26,12 @@ import {
 import moment from "moment";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { QueryClient, useMutation, useQuery } from "react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "react-query";
 import services from "../services";
 import Layout from "../src/components/Layout";
 
@@ -44,10 +49,10 @@ const NoData = ({ onSubmit, loading }) => {
   );
 };
 
-const FormProfile = ({ initialValues, refetch }) => {
+const FormProfile = ({ initialValues }) => {
   const router = useRouter();
   const [form] = Form.useForm();
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
 
   const validateMessages = {
     required: "${label} is tidak boleh kosong!",
@@ -102,8 +107,7 @@ const FormProfile = ({ initialValues, refetch }) => {
   const updateMutation = useMutation((data) => services.updateResume(data), {
     onSuccess: async () => {
       message.success("Data Berhasil disimpan");
-      refetch();
-      await queryClient.invalidateQueries("resume");
+      queryClient.invalidateQueries("resume");
     },
     onError: (e) => {
       message.error(`Simpan error ${e}`);
@@ -677,15 +681,12 @@ const File = ({
 };
 
 const Resume = () => {
-  const { data, isLoading, refetch } = useQuery(["resume"], () =>
-    services.getResume()
-  );
+  const { data, isLoading } = useQuery(["resume"], () => services.getResume());
   const queryClient = new QueryClient();
 
   const createMutation = useMutation(() => services.createResume(), {
-    onSettled: async () => {
-      await queryClient.invalidateQueries("resume");
-      refetch();
+    onSettled: () => {
+      queryClient.invalidateQueries("resume");
     },
   });
 
@@ -706,7 +707,6 @@ const Resume = () => {
               />
             ) : (
               <FormProfile
-                refetch={refetch}
                 initialValues={{
                   ...data,
                   tanggal_lahir: data?.tanggal_lahir

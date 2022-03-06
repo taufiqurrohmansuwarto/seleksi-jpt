@@ -49,7 +49,7 @@ model documents {
   surat_pernyataan_tidak_pidana                      String?
   surat_pernyataan_tidak_pidana_is_verified          Boolean?  @default(false)
   surat_pernyataan_tidak_dijatuhi_hukdis             String?
-  surat_pernyataan_tidak_dijathui_hukdis_is_verified Boolean?  @default(false)
+  surat_pernyataan_tidak_dijatuhi_hukdis_is_verified Boolean?  @default(false)
   surat_keterangan_pakta_integritas                  String?
   surat_keterangan_pakta_integritas_is_verified      Boolean?  @default(false)
   surat_keterangan_jasmani_rohani                    String?
