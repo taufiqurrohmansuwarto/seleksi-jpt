@@ -135,8 +135,6 @@ const FormProfile = ({ initialValues, refetch }) => {
       ...fieldValue,
     };
 
-    console.log(values);
-
     await updateMutation.mutateAsync(values);
   };
 
@@ -628,7 +626,6 @@ const File = ({
       formData.append("property", property);
       try {
         await updateFileMutation.mutateAsync(formData);
-        console.log("test");
         onSuccess("Ok");
       } catch (error) {
         console.log(error);
@@ -636,7 +633,6 @@ const File = ({
       }
     },
     beforeUpload: function (file) {
-      console.log("test");
       const isJpgOrPngorPDF =
         file.type === "image/jpeg" ||
         file.type === "image/png" ||

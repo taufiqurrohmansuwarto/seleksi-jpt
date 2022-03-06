@@ -327,7 +327,6 @@ const submit = async (req, res) => {
 
       const isCompletedProfile = dataProfile?.every((d) => !!d?.current);
       const isCompletedDocument = dataDocument?.every((x) => !!x?.current);
-      console.log(dataProfile);
 
       if (isCompletedDocument && isCompletedProfile) {
         await prisma.profiles.update({
