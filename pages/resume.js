@@ -1,7 +1,7 @@
 import {
   CheckCircleTwoTone,
   ExclamationCircleTwoTone,
-  UploadOutlined,
+  UploadOutlined
 } from "@ant-design/icons";
 import {
   Alert,
@@ -21,7 +21,7 @@ import {
   Space,
   Steps,
   Tooltip,
-  Upload,
+  Upload
 } from "antd";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -457,7 +457,7 @@ const FormProfile = ({ initialValues, refetch }) => {
             <Col span={12}>
               <File
                 description="STTP Pendidikan dan Pelatihan Kepemimpinan"
-                title="STTP"
+                title="STTP/Diklatpim 1"
                 property="sttp"
                 documents={initialValues?.documents}
                 queryClient={queryClient}
