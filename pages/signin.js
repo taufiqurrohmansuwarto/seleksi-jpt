@@ -16,7 +16,9 @@ export default function SignIn({ providers }) {
       <Row align="middle">
         <img src="gambar.png" alt="" />
         <Col>
-          <Typography.Title>Seleksi JPT Pemprov Jatim</Typography.Title>
+          <Typography.Title level={3} strong>
+            Seleksi JPT Madya Pemerintah Provinsi Jawa Timur
+          </Typography.Title>
           <Space direction="vertical">
             {Object?.values(providers).map((provider) => (
               <div key={provider.name}>
@@ -43,6 +45,15 @@ export default function SignIn({ providers }) {
             <p>
               Version <a>0.0.1-a.1</a>
             </p>
+            <Space>
+              <img src="logobkd.jpg" alt="" style={{ width: 50 }} />
+              <img src="pemprov.png" alt="" style={{ width: 20 }} />
+            </Space>
+            <div>
+              <Typography.Text strong>
+                @Copyright BKD Provinsi Jawa Timur 2022
+              </Typography.Text>
+            </div>
           </div>
         </Col>
       </Row>

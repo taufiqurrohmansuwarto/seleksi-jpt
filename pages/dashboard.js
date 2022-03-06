@@ -12,7 +12,7 @@ const Dashboard = () => {
       <Card>
         <div>
           Halo, {data?.user?.name}, Berikut adalah portal untuk melakukan
-          pendaftaran seleksi JPT di Pemprov Jatim.
+          pendaftaran seleksi JPT Madya di Pemerintah Provinsi Jawa Timur.
         </div>
         <div>Silahkan klik tombol di bawah ini untuk melakukan pendaftaran</div>
         <Button type="primary" onClick={() => router.push("/resume")}>

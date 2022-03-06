@@ -1,4 +1,8 @@
-import { UploadOutlined } from "@ant-design/icons";
+import {
+  CheckCircleTwoTone,
+  ExclamationCircleTwoTone,
+  UploadOutlined,
+} from "@ant-design/icons";
 import {
   Alert,
   Button,
@@ -60,6 +64,26 @@ const FormProfile = ({ initialValues, refetch }) => {
     "S-3",
   ];
 
+  const golongan = [
+    { title: "IV/a : Pembina", value: "IV/a" },
+    {
+      title: "IV/b : Pembina Tingkat I",
+      value: "IV/b",
+    },
+    {
+      title: "IV/c : Pembina Muda",
+      value: "IV/c",
+    },
+    {
+      title: "IV/d : Pembina Madya",
+      value: "IV/d",
+    },
+    {
+      title: "IV/e : Pembina Utama",
+      value: "IV/e",
+    },
+  ];
+
   const eselons = [
     "I.a",
     "I.b",
@@ -75,9 +99,12 @@ const FormProfile = ({ initialValues, refetch }) => {
 
   const updateMutation = useMutation((data) => services.updateResume(data), {
     onSuccess: async () => {
-      message.success("Berhasil diupdate");
+      message.success("Data Berhasil disimpan");
       refetch();
       await queryClient.invalidateQueries("resume");
+    },
+    onError: (e) => {
+      message.error(`Simpan error ${e}`);
     },
     onSettled: async () => {},
   });
@@ -203,7 +230,15 @@ const FormProfile = ({ initialValues, refetch }) => {
             name="gol_pangkat"
             label="Gol/Pangkat"
           >
-            <Input />
+            <Select showSearch allowClear>
+              {golongan?.map((e) => {
+                return (
+                  <Select.Option key={e?.value} value={e?.value}>
+                    {e.title}
+                  </Select.Option>
+                );
+              })}
+            </Select>
           </Form.Item>
           <Form.Item
             rules={[{ required: true }]}
@@ -269,7 +304,7 @@ const FormProfile = ({ initialValues, refetch }) => {
                 htmlType="submit"
                 loading={updateMutation.isLoading}
               >
-                Ubah Profile
+                Simpan
               </Button>
             </Space>
           </Form.Item>
@@ -356,8 +391,8 @@ const FormProfile = ({ initialValues, refetch }) => {
       render: (
         <>
           <Alert
-            message="Perhatian"
-            description="Dokumen yang diupload merupakan dokumen asli yang discan. Dapat terbaca dan terlihat dengan jelas. Teliti kembali dokumen yang sudah diupload"
+            message="Perhatian harap diperhatikan dengan seksama"
+            description="Dokumen yang diupload merupakan dokumen asli yang discan. Dapat terbaca dan terlihat dengan jelas. Dokumen bertipe file pdf/png/jpeg dengan ukuran maksimal 2MB. Teliti kembali dokumen yang sudah diupload"
             showIcon
             type="warning"
           />
@@ -566,6 +601,10 @@ const File = ({
     onSuccess: (result) => {
       const { data } = result;
       setFileList(data?.data);
+      message.success(`Data ${title} berhasil diupdate`);
+    },
+    onError: (e) => {
+      message.error(`Penyimpanan gagal ${e}`);
     },
   });
 
@@ -611,13 +650,21 @@ const File = ({
     <div style={{ marginBottom: 8 }}>
       <Upload {...props}>
         <Tooltip title={description}>
-          <Button
-            danger={!fileList?.length}
-            loading={updateFileMutation.isLoading}
-            icon={<UploadOutlined />}
-          >
-            {title}
-          </Button>
+          <Space>
+            <Button
+              danger={!fileList?.length}
+              type="primary"
+              loading={updateFileMutation.isLoading}
+              icon={<UploadOutlined />}
+            >
+              {title}
+            </Button>
+            {!fileList?.length ? (
+              <ExclamationCircleTwoTone twoToneColor="#cf1322" />
+            ) : (
+              <CheckCircleTwoTone twoToneColor="#52c41a" />
+            )}
+          </Space>
         </Tooltip>
       </Upload>
     </div>
