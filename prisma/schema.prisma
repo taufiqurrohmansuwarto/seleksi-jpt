@@ -64,6 +64,7 @@ model documents {
 
 model profiles {
   nama_gelar                           String?    @db.VarChar(200)
+  nomer_peserta                        String?
   nama_gelar_is_verified               Boolean?   @default(false)
   nip                                  String?    @db.VarChar(200)
   nip_is_verified                      Boolean?   @default(false)

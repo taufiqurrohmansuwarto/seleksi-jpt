@@ -14,10 +14,11 @@ export default function SignIn({ providers }) {
       }}
     >
       <Row align="middle">
-        <img src="gambar.png" alt="" />
+        <img src="gambar1.jpeg" style={{ width: 500 }} alt="" />
         <Col>
-          <Typography.Title level={3} strong>
-            Seleksi JPT Madya Pemerintah Provinsi Jawa Timur
+          <Typography.Title level={4} strong>
+            Seleksi Terbuka Pengisian Lowongan JPT Madya Sekretaris Daerah
+            Provinsi Jawa Timur
           </Typography.Title>
           <Space direction="vertical">
             {Object?.values(providers).map((provider) => (
@@ -33,18 +34,7 @@ export default function SignIn({ providers }) {
             ))}
           </Space>
           <div style={{ marginTop: 10 }}>
-            <p>
-              This code available on{" "}
-              <a
-                href="https://github.com/taufiqurrohmansuwarto/seleksi-jpt"
-                target="_blank"
-              >
-                github
-              </a>
-            </p>
-            <p>
-              Version <a>0.0.1-a.1</a>
-            </p>
+            <p>Version 0.0.1-a.1</p>
             <Space>
               <img src="logobkd.jpg" alt="" style={{ width: 50 }} />
               <img src="pemprov.png" alt="" style={{ width: 20 }} />

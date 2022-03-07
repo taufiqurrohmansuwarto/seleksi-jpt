@@ -468,7 +468,7 @@ const FormProfile = ({ initialValues }) => {
             <Col span={12}>
               <File
                 description="STTP Pendidikan dan Pelatihan Kepemimpinan"
-                title="STTP/Diklatpim 1"
+                title="STTP/Diklatpim"
                 property="sttp"
                 documents={initialValues?.documents}
                 queryClient={queryClient}

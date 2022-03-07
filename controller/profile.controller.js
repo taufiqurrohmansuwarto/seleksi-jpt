@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import prisma from "../lib/prisma";
 
 const documentProperties = [
@@ -23,11 +24,14 @@ const documentProperties = [
 
 const create = async (req, res) => {
   const { user } = req.currentUser;
+  const currentId = `BKD-${nanoid(5)}`;
+
   try {
     await prisma.profiles.create({
       data: {
         user_id: user?.id,
         alamat_email: user?.email,
+        nomer_peserta: currentId,
         documents: {
           create: {},
         },
