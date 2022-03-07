@@ -1,4 +1,4 @@
-import { Button, Col, Row, Space, Typography } from "antd";
+import { Button, Col, Divider, Row, Space, Typography } from "antd";
 import { getProviders, signIn } from "next-auth/react";
 
 export default function SignIn({ providers }) {
@@ -16,10 +16,15 @@ export default function SignIn({ providers }) {
       <Row align="middle">
         <img src="gambar1.jpeg" style={{ width: 500 }} alt="" />
         <Col>
-          <Typography.Title level={4} strong>
-            Seleksi Terbuka Pengisian Lowongan JPT Madya Sekretaris Daerah
-            Provinsi Jawa Timur
-          </Typography.Title>
+          <div>
+            <h1 style={{ marginBottom: 0 }}>
+              Seleksi Terbuka Pengisian Lowonga JPT Madya
+            </h1>
+          </div>
+          <h2 style={{ marginBottom: 0 }}>
+            Sekretaris Daerah Provinsi Jawa Timur
+          </h2>
+          <Divider />
           <Space direction="vertical">
             {Object?.values(providers).map((provider) => (
               <div key={provider.name}>
