@@ -1,6 +1,7 @@
 import moment from "moment";
 import { nanoid } from "nanoid";
 import prisma from "../lib/prisma";
+import image from "./image";
 
 const documentProperties = [
   "surat_lamaran",
@@ -435,6 +436,11 @@ const report = async (req, res) => {
             text: "Lowongan JPT Madya Sekretaris Daerah Provinsi Jawa Timur",
           },
           {
+            style: "imageStyle",
+            image: image.jatimLogo,
+            width: 35,
+          },
+          {
             style: "tableExample",
             table: {
               widths: [100, 4, "*"],
@@ -488,6 +494,10 @@ const report = async (req, res) => {
           tableExample: {
             fontSize: 10,
             margin: [0, 20, 0, 15],
+          },
+          imageStyle: {
+            alignment: "center",
+            margin: [0, 10, 0, 0],
           },
         },
       });
