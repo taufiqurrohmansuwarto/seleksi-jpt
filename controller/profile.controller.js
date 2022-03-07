@@ -26,7 +26,7 @@ const documentProperties = [
 
 const create = async (req, res) => {
   const { user } = req.currentUser;
-  const currentId = `BKD-${nanoid(5)}`;
+  const currentId = `SHELTERJPTMADYA-${nanoid(5)}`;
 
   try {
     await prisma.profiles.create({
@@ -409,7 +409,7 @@ const report = async (req, res) => {
         .json({ code: 404, message: "data not found data not submitted" });
     } else {
       if (!result?.nomer_peserta) {
-        const nomer_peserta = `BKD-${nanoid(5)}`;
+        const nomer_peserta = `SHELTERJPTMADYA-${nanoid(5)}`;
         await prisma.profiles.update({
           data: {
             nomer_peserta,
