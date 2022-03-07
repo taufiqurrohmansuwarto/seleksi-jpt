@@ -58,18 +58,7 @@ const FormProfile = ({ initialValues }) => {
     required: "${label} is tidak boleh kosong!",
   };
 
-  const pendidikans = [
-    "SD",
-    "SLTP",
-    "SLTA",
-    "D-I",
-    "D-II",
-    "D-III",
-    "D-IV",
-    "S-1",
-    "S-2",
-    "S-3",
-  ];
+  const pendidikans = ["D-IV", "S-1", "S-2", "S-3"];
 
   const golongan = [
     { title: "IV/a : Pembina", value: "IV/a" },
@@ -128,6 +117,9 @@ const FormProfile = ({ initialValues }) => {
   const handleFinish = async (fieldValue) => {
     const values = {
       ...fieldValue,
+      tmt_pengangkatan_pertama: fieldValue["tmt_pengankatan_pertama"]
+        ? fieldValue["tmt_pengangkatan_pertama"]
+        : null,
     };
 
     await updateMutation.mutateAsync(values);
