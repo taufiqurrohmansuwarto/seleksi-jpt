@@ -24,10 +24,15 @@ const updateFile = (data) => {
   });
 };
 
+const reportSubmit = () => {
+  return axios.get("/seleksi-jpt/api/report", { responseType: "blob" });
+};
+
 export default {
   getResume,
   createResume,
   submitResume,
   updateResume,
   updateFile,
+  reportSubmit,
 };

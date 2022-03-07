@@ -1,6 +1,6 @@
+import moment from "moment";
 import { nanoid } from "nanoid";
 import prisma from "../lib/prisma";
-import notification from "../utils/notification";
 
 const documentProperties = [
   "surat_lamaran",
@@ -338,6 +338,7 @@ const submit = async (req, res) => {
         await prisma.profiles.update({
           data: {
             is_submit: true,
+            updated_at: new Date(),
           },
           where: {
             user_id: user?.id,
@@ -374,17 +375,129 @@ const update = async (req, res) => {
   }
 };
 
+const fs = require("fs");
+const path = require("path");
+
+const fonts = {
+  Roboto: {
+    normal: "fonts/Roboto-Regular.ttf",
+    bold: "fonts/Roboto-Medium.ttf",
+    italics: "fonts/Roboto-Italic.ttf",
+    bolditalics: "fonts/Roboto-MediumItalic.ttf",
+  },
+};
+
+const PdfPrinter = require("pdfmake");
+const printer = new PdfPrinter(fonts);
+
 const report = async (req, res) => {
   try {
-    await notification.emailNotification(
-      "taufiqurrohman.suwarto@gmail.com",
-      "halo iput taufiqurrohman suwarto"
-    );
-    res.status(200).json({ code: 200 });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ code: 400 });
-  }
+    // get the fucking user
+    const { user } = req.currentUser;
+    const id = user?.id;
+
+    const result = await prisma.profiles.findUnique({
+      where: {
+        user_id: id,
+      },
+    });
+
+    if (!result || !result?.is_submit) {
+      res
+        .status(400)
+        .json({ code: 404, message: "data not found data not submitted" });
+    } else {
+      if (!result?.nomer_peserta) {
+        const nomer_peserta = `BKD-${nanoid(5)}`;
+        await prisma.profiles.update({
+          data: {
+            nomer_peserta,
+          },
+          where: {
+            user_id: id,
+          },
+        });
+      }
+
+      var doc = printer.createPdfKitDocument({
+        info: {
+          title: "PDF with External Image",
+          author: "Matt Hagemann",
+          subject: "PDF with External Image",
+        },
+        content: [
+          {
+            style: "headerStyle",
+            text: "Bukti Pendaftaran",
+          },
+          {
+            style: "headerStyle",
+            text: "Lowongan JPT Madya Sekretaris Daerah Provinsi Jawa Timur",
+          },
+          {
+            style: "tableExample",
+            table: {
+              widths: [100, 4, "*"],
+              body: [
+                ["Nomer Pendaftaran", ":", result?.nomer_peserta],
+                ["Nama", ":", result?.nama_gelar],
+                ["NIP", ":", result?.nip],
+                ["Tempat Lahir", ":", result?.tempat_lahir],
+                [
+                  "Tanggal Lahir",
+                  ":",
+                  moment(result?.tanggal_lahir).format("DD-MM-YYYY"),
+                ],
+                ["Alamat Email", ":", result?.alamat_email],
+                ["No. HP", ":", result?.no_hp],
+                ["Pendidikan Terakhir", ":", result?.pendidikan_terakhir],
+                ["Tahun Lulus", ":", result?.tahun_lulus],
+                ["GOL/PANGKAT", ":", result?.gol_pangkat],
+                [
+                  "TMT PANGKAT",
+                  ":",
+                  moment(result?.tmt_pangkat).format("DD-MM-YYYY"),
+                ],
+                ["Jabatan Terakhir", ":", result?.jabatan_terakhir],
+                ["Eselon Terakhir", ":", result?.eselon_terakhir],
+                [
+                  "TMT Jabatan Terakhir",
+                  ":",
+                  moment(result?.tmt_jab_terakhir).format("DD-MM-YYYY"),
+                ],
+                ["Instansi", ":", result?.instansi],
+                [
+                  "Pengangkatan Pertama dalam JPTP",
+                  ":",
+                  result?.tmt_pengangkatan_pertama
+                    ? moment(result?.tmt_pengangkatan_pertama).format(
+                        "DD-MM-YYYY"
+                      )
+                    : "",
+                ],
+              ],
+            },
+          },
+          { qr: "12121212" },
+        ],
+        styles: {
+          headerStyle: {
+            alignment: "center",
+            bold: true,
+          },
+          tableExample: {
+            fontSize: 10,
+            margin: [0, 20, 0, 15],
+          },
+        },
+      });
+
+      doc.end();
+      res.setHeader("Content-type", "application/pdf");
+      res.setHeader("Content-disposition", 'inline; filename="Example.pdf"');
+      doc.pipe(res);
+    }
+  } catch (error) {}
 };
 
 export default {

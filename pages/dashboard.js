@@ -1,22 +1,51 @@
-import { Alert, Button, Card, Divider } from "antd";
+import { PrinterOutlined } from "@ant-design/icons";
+import { Alert, Button, Card, Divider, message } from "antd";
+import FileSaver from "file-saver";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import services from "../services";
 import Layout from "../src/components/Layout";
 
 const ResumeTerkirim = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleCetak = async () => {
+    setLoading(true);
+    try {
+      const result = await services.reportSubmit();
+      FileSaver.saveAs(result?.data, "kartu-pendaftaran.pdf");
+      setLoading(false);
+    } catch (error) {
+      message.error(error);
+      setLoading(false);
+    }
+  };
   return (
     <>
       <Divider />
       <Alert
         message="Pendaftaran Berhasil"
-        description="Selamat anda berhasil mengirimkan form seleksi JPT Madya Pemerintah
-      Provinsi Jawa Timur, Silahkan menunggu pengumuman selanjutnya dib
-      bkd.jatimprov.go.id"
+        description={
+          <div>
+            Selamat anda berhasil mengirimkan form seleksi JPT Madya Pemerintah
+            Provinsi Jawa Timur, Silahkan menunggu pengumuman selanjutnya di{" "}
+            <a>bkd.jatimprov.go.id</a>
+          </div>
+        }
         type="success"
         showIcon
       />
+      <Divider />
+      <Button
+        icon={<PrinterOutlined />}
+        loading={loading}
+        onClick={handleCetak}
+        type="primary"
+      >
+        Bukti Pendaftaran
+      </Button>
     </>
   );
 };
