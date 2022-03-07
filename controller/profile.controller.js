@@ -433,7 +433,7 @@ const report = async (req, res) => {
           },
           {
             style: "headerStyle",
-            text: "Lowongan JPT Madya Sekretaris Daerah Provinsi Jawa Timur",
+            text: "Seleksi Terbuka JPT Madya Sekretaris Daerah Provinsi Jawa Timur",
           },
           {
             style: "imageStyle",
