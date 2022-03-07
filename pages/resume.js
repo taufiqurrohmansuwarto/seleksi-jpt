@@ -26,12 +26,7 @@ import {
 import moment from "moment";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import services from "../services";
 import Layout from "../src/components/Layout";
 
@@ -381,7 +376,24 @@ const FormProfile = ({ initialValues }) => {
         <>
           <Alert
             message="Perhatian harap diperhatikan dengan seksama"
-            description="Dokumen yang diupload merupakan dokumen asli yang discan. Dapat terbaca dan terlihat dengan jelas. Dokumen bertipe file pdf/png/jpeg dengan ukuran maksimal 2MB. Teliti kembali dokumen yang sudah diupload"
+            description={
+              <div>
+                Contoh dokumen bisa dilihat di{" "}
+                <a>
+                  https://drive.google.com/drive/folders/1mJhQ-JJ83oIwVgeZZG2QhcszH9Ia4szW
+                </a>
+                . Dokumen yang diupload merupakan dokumen{" "}
+                <span style={{ fontWeight: "bold" }}>asli yang discan</span>.
+                Dapat{" "}
+                <span style={{ fontWeight: "bold" }}>
+                  terbaca dan terlihat dengan jelas.
+                </span>{" "}
+                Dokumen bertipe file{" "}
+                <span style={{ fontWeight: "bold" }}>pdf/png/jpeg</span> dengan
+                ukuran maksimal <span style={{ fontWeight: "bold" }}>2MB</span>.
+                Teliti kembali dokumen yang sudah diupload.
+              </div>
+            }
             showIcon
             type="warning"
           />
@@ -660,7 +672,7 @@ const File = ({
 
 const Resume = () => {
   const { data, isLoading } = useQuery(["resume"], () => services.getResume());
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
 
   const createMutation = useMutation(() => services.createResume(), {
     onSettled: () => {
