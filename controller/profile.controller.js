@@ -484,7 +484,7 @@ const report = async (req, res) => {
               ],
             },
           },
-          { qr: "12121212" },
+          { qr: result?.nomer_peserta },
         ],
         styles: {
           headerStyle: {
@@ -507,7 +507,10 @@ const report = async (req, res) => {
       res.setHeader("Content-disposition", 'inline; filename="Example.pdf"');
       doc.pipe(res);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ code: 400, message: "Internal Server Erorr" });
+  }
 };
 
 export default {
