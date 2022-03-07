@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import prisma from "../lib/prisma";
+import notification from "../utils/notification";
 
 const documentProperties = [
   "surat_lamaran",
@@ -373,9 +374,23 @@ const update = async (req, res) => {
   }
 };
 
+const report = async (req, res) => {
+  try {
+    await notification.emailNotification(
+      "taufiqurrohman.suwarto@gmail.com",
+      "halo iput taufiqurrohman suwarto"
+    );
+    res.status(200).json({ code: 200 });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ code: 400 });
+  }
+};
+
 export default {
   create,
   submit,
   get,
   update,
+  report,
 };

@@ -1,7 +1,7 @@
 import {
   CheckCircleTwoTone,
   ExclamationCircleTwoTone,
-  UploadOutlined,
+  UploadOutlined
 } from "@ant-design/icons";
 import {
   Alert,
@@ -21,7 +21,7 @@ import {
   Space,
   Steps,
   Tooltip,
-  Upload,
+  Upload
 } from "antd";
 import moment from "moment";
 import { useRouter } from "next/router";
@@ -56,17 +56,12 @@ const FormProfile = ({ initialValues }) => {
   const pendidikans = ["D-IV", "S-1", "S-2", "S-3"];
 
   const golongan = [
-    { title: "IV/a : Pembina", value: "IV/a" },
     {
-      title: "IV/b : Pembina Tingkat I",
-      value: "IV/b",
-    },
-    {
-      title: "IV/c : Pembina Muda",
+      title: "IV/c : Pembina Utama Muda",
       value: "IV/c",
     },
     {
-      title: "IV/d : Pembina Madya",
+      title: "IV/d : Pembina Utama Madya",
       value: "IV/d",
     },
     {
@@ -75,7 +70,7 @@ const FormProfile = ({ initialValues }) => {
     },
   ];
 
-  const eselons = ["I.a", "I.b", "Non Eselon/JF Ahli Utama"];
+  const eselons = ["I.a", "I.b", 'II.a', "Non Eselon/JF Ahli Utama"];
 
   useEffect(() => {}, [initialValues]);
 

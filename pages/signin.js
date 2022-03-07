@@ -18,7 +18,7 @@ export default function SignIn({ providers }) {
         <Col>
           <div>
             <h1 style={{ marginBottom: 0 }}>
-              Seleksi Terbuka Pengisian Lowonga JPT Madya
+              Seleksi Terbuka Pengisian Lowongan JPT Madya
             </h1>
           </div>
           <h2 style={{ marginBottom: 0 }}>
