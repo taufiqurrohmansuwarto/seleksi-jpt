@@ -91,16 +91,7 @@ const FormProfile = ({ initialValues }) => {
     },
   ];
 
-  const eselons = [
-    "I.a",
-    "I.b",
-    "II.a",
-    "II.b",
-    "III.a",
-    "III.b",
-    "IV.a",
-    "IV.b",
-  ];
+  const eselons = ["I.a", "I.b", "Non Eselon/JF Ahli Utama"];
 
   useEffect(() => {}, [initialValues]);
 
@@ -290,11 +281,6 @@ const FormProfile = ({ initialValues }) => {
             <Input />
           </Form.Item>
           <Form.Item
-            rules={[
-              {
-                required: true,
-              },
-            ]}
             name="tmt_pengangkatan_pertama"
             extra="TMT Pengangkatan Pertama dalam JPTP"
             label="TMT Pengangkatan Pertama"
@@ -358,7 +344,7 @@ const FormProfile = ({ initialValues }) => {
       "eselon_terakhir",
       "tmt_jab_terakhir",
       "instansi",
-      "tmt_pengangkatan_pertama",
+      // "tmt_pengangkatan_pertama",
     ];
 
     const { documents, ...last } = initialValues;
@@ -475,7 +461,7 @@ const FormProfile = ({ initialValues }) => {
               />
               <File
                 description="Penilaian Prestasi Kerja 2 (dua) tahun terakhir (tahun 2020 dan 2021)"
-                title="SKP"
+                title="SKP tahun 2020 dan 2021"
                 property="skp"
                 documents={initialValues?.documents}
                 queryClient={queryClient}

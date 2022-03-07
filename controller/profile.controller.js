@@ -314,7 +314,7 @@ const submit = async (req, res) => {
       "eselon_terakhir",
       "tmt_jab_terakhir",
       "instansi",
-      "tmt_pengangkatan_pertama",
+      // "tmt_pengangkatan_pertama",
     ];
 
     if (!result) {
