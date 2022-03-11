@@ -9,6 +9,7 @@ const uploadFileMinio = (mc, fileBuffer, filename, size, mimetype) => {
       function (err, info) {
         if (err) {
           reject(err);
+          console.log(error);
         } else {
           resolve(info);
         }
