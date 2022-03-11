@@ -1,6 +1,10 @@
+import Moment from "moment";
 import { nanoid } from "nanoid";
 import prisma from "../lib/prisma";
 import createPdf from "../utils/create-pdf";
+
+const dueDate = Moment("2022-03-11");
+const currentDate = Moment(new Date()).format("YYYY-MM-DD");
 
 const documentProperties = [
   "surat_lamaran",
@@ -27,18 +31,25 @@ const create = async (req, res) => {
   const { user } = req.currentUser;
   const currentId = `SHELTERJPTMADYA-${nanoid(5)}`;
 
+  const dueDateApps = dueDate?.isSameOrAfter(currentDate);
+
+  // ini harus diberi tanggal
   try {
-    await prisma.profiles.create({
-      data: {
-        user_id: user?.id,
-        alamat_email: user?.email,
-        nomer_peserta: currentId,
-        documents: {
-          create: {},
+    if (dueDateApps) {
+      await prisma.profiles.create({
+        data: {
+          user_id: user?.id,
+          alamat_email: user?.email,
+          nomer_peserta: currentId,
+          documents: {
+            create: {},
+          },
         },
-      },
-    });
-    res.json({ code: 200, message: "created" });
+      });
+      res.json({ code: 200, message: "created" });
+    } else {
+      res.json({ code: 403, message: "Aplikasi sudah kadaluarsa" });
+    }
   } catch (error) {
     console.log(error);
   }

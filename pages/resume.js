@@ -31,16 +31,31 @@ import services from "../services";
 import Layout from "../src/components/Layout";
 
 const NoData = ({ onSubmit, loading }) => {
+  const dueDate = moment("2022-03-11");
+  const currentDate = moment(new Date()).format("YYYY-MM-DD");
+
+  const checkDate = dueDate?.isSameOrAfter(currentDate);
+
   return (
-    <Result
-      status="warning"
-      title="Sepertinya anda belum mengisi resume"
-      extra={
-        <Button type="primary" onClick={onSubmit} loading={loading}>
-          Mulai Isi
-        </Button>
-      }
-    />
+    <>
+      {checkDate ? (
+        <Result
+          status="warning"
+          title="Sepertinya anda belum mengisi resume"
+          extra={
+            <Button type="primary" onClick={onSubmit} loading={loading}>
+              Mulai Isi
+            </Button>
+          }
+        />
+      ) : (
+        <Result
+          status="error"
+          subTitle="Pendaftaran sudah ditutup tanggal 12 Maret 2022"
+          title="Pendaftaran sudah ditutup"
+        />
+      )}
+    </>
   );
 };
 
