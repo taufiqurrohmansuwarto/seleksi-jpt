@@ -1,7 +1,7 @@
 import {
   CheckCircleTwoTone,
   ExclamationCircleTwoTone,
-  UploadOutlined
+  UploadOutlined,
 } from "@ant-design/icons";
 import {
   Alert,
@@ -21,7 +21,7 @@ import {
   Space,
   Steps,
   Tooltip,
-  Upload
+  Upload,
 } from "antd";
 import moment from "moment";
 import { useRouter } from "next/router";
@@ -70,7 +70,7 @@ const FormProfile = ({ initialValues }) => {
     },
   ];
 
-  const eselons = ["I.a", "I.b", 'II.a', "Non Eselon/JF Ahli Utama"];
+  const eselons = ["I.a", "I.b", "II.a", "Non Eselon/JF Ahli Utama"];
 
   useEffect(() => {}, [initialValues]);
 
@@ -384,9 +384,10 @@ const FormProfile = ({ initialValues }) => {
                   terbaca dan terlihat dengan jelas.
                 </span>{" "}
                 Dokumen bertipe file{" "}
-                <span style={{ fontWeight: "bold" }}>pdf/png/jpeg</span> dengan
-                ukuran maksimal <span style={{ fontWeight: "bold" }}>2MB</span>.
-                Teliti kembali dokumen yang sudah diupload.
+                <span style={{ fontWeight: "bold" }}>pdf/png/jpeg/jpg</span>{" "}
+                dengan ukuran maksimal{" "}
+                <span style={{ fontWeight: "bold" }}>2MB</span>. Teliti kembali
+                dokumen yang sudah diupload.
               </div>
             }
             showIcon
@@ -607,7 +608,7 @@ const File = ({
   const props = {
     maxCount: 1,
     fileList,
-    accept: ".pdf,.png,.jpg",
+    accept: ".pdf,.png,.jpg,.jpeg",
     customRequest: async (options) => {
       const { file, onSuccess, onError, onProgress } = options;
       const formData = new FormData();
@@ -625,9 +626,10 @@ const File = ({
       const isJpgOrPngorPDF =
         file.type === "image/jpeg" ||
         file.type === "image/png" ||
+        file.type === "image/jpg" ||
         file.type === "application/pdf";
       if (!isJpgOrPngorPDF) {
-        message.error("You can only upload JPG/PNG/PDF file!");
+        message.error("You can only upload JPEG/JPG/PNG/PDF file!");
       }
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isLt2M) {
