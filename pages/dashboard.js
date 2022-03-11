@@ -34,6 +34,7 @@ const FormTMTPengangkatanPertama = ({ initialValues }) => {
 
   return (
     <>
+      <Divider />
       <Alert
         type="warning"
         message="Perhatian"
@@ -53,7 +54,7 @@ const FormTMTPengangkatanPertama = ({ initialValues }) => {
           <DatePicker format={"DD-MM-YYYY"} />
         </Form.Item>
         <Form.Item>
-          <Button htmlType="submit">Rubah</Button>
+          <Button htmlType="submit">Simpan</Button>
         </Form.Item>
       </Form>
     </>
