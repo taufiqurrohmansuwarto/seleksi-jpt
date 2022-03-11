@@ -11,6 +11,9 @@ export const config = {
 
 const handler = nc();
 
-export default handler
-  .use(auth)
-  .patch(multer().single("file"), fileController.updateFile);
+export default handler.use(auth).patch(
+  multer({
+    limits: 5048576,
+  }).single("file"),
+  fileController.updateFile
+);
