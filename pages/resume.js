@@ -107,7 +107,7 @@ const FormProfile = ({ initialValues }) => {
   const handleFinish = async (fieldValue) => {
     const values = {
       ...fieldValue,
-      tmt_pengangkatan_pertama: fieldValue["tmt_pengankatan_pertama"]
+      tmt_pengangkatan_pertama: fieldValue["tmt_pengangkatan_pertama"]
         ? fieldValue["tmt_pengangkatan_pertama"]
         : null,
     };
